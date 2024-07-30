@@ -1,3 +1,7 @@
+
+trash*.py
+
+
 draft.*
 data/**/*.webm
 data/**/*.webm.part
