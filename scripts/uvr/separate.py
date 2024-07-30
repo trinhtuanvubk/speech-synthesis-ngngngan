@@ -10,7 +10,7 @@ from uvr5_pack.utils import _get_name_params,inference
 from uvr5_pack.lib_v5.model_param_init import ModelParameters
 from scipy.io import wavfile
 
-from scripts._constants_colab import LIST_VID, VAD_DATA_PATH, VOICE_DATA_PATH
+from _constants_colab import LIST_VID, VAD_DATA_PATH, VOICE_DATA_PATH
 
 
 class  _audio_pre_():
