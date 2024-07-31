@@ -58,6 +58,15 @@ class  _audio_pre_():
         name=os.path.basename(music_file)
         if(ins_root is not None):os.makedirs(ins_root, exist_ok=True)
         if(vocal_root is not None):os.makedirs(vocal_root , exist_ok=True)
+        
+        # create vocal output and instruments output
+        ins_output = os.path.join(ins_root, 'instrument_{}_{}'.format(self.model_name, name))
+        vocal_output = os.path.join(vocal_root , 'vocal_{}_{}'.format(self.model_name, name))
+        
+        # check vocal file exist
+        if (vocal_root is not None) and os.path.isfile(vocal_output):
+            return
+            
         X_wave, y_wave, X_spec_s, y_spec_s = {}, {}, {}, {}
         bands_n = len(self.mp.param['band'])
         # print(bands_n)
@@ -96,7 +105,7 @@ class  _audio_pre_():
             else:
                 wav_instrument = spec_utils.cmb_spectrogram_to_wave(y_spec_m, self.mp)
             print ('%s instruments done'%name)
-            wavfile.write(os.path.join(ins_root, 'instrument_{}_{}'.format(self.model_name, name)), self.mp.param['sr'], (np.array(wav_instrument)*32768).astype("int16"))  #
+            wavfile.write(ins_output, self.mp.param['sr'], (np.array(wav_instrument)*32768).astype("int16"))  #
         if (vocal_root is not None):
             if self.data['high_end_process'].startswith('mirroring'):
                 input_high_end_ = spec_utils.mirroring(self.data['high_end_process'],  v_spec_m, input_high_end, self.mp)
@@ -104,7 +113,7 @@ class  _audio_pre_():
             else:
                 wav_vocals = spec_utils.cmb_spectrogram_to_wave(v_spec_m, self.mp)
             print ('%s vocals done'%name)
-            wavfile.write(os.path.join(vocal_root , 'vocal_{}_{}'.format(self.model_name, name)), self.mp.param['sr'], (np.array(wav_vocals)*32768).astype("int16"))
+            wavfile.write(vocal_output, self.mp.param['sr'], (np.array(wav_vocals)*32768).astype("int16"))
 
 def run(model_path, device, is_half, audio_path, save_path, only_save_vocal=True):
     pre_fun = _audio_pre_(model_path=model_path,device=device,is_half=True)
