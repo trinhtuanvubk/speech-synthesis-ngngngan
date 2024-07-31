@@ -41,6 +41,7 @@ def split_long_audio(input_file, output_root, split_threshold: 15*60, accept_thr
         print(f"Long audio: {input_file}")
 
         chunks = split_on_silence(audio, min_silence_len=300, silence_thresh=-60, keep_silence=300)
+        print(f"len chunks: {len(chunks)}")
         current_length = 0
         current_split = 0
         # out_data is an empty AudioSegment
