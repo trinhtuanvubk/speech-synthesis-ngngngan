@@ -56,12 +56,12 @@ class  _audio_pre_():
     def _path_audio_(self, music_file ,ins_root=None,vocal_root=None):
         if(ins_root is None and vocal_root is None):return "No save root."
         name = os.path.basename(music_file)
-        if(ins_root is not None):os.makedirs(ins_root, exist_ok=True)
-        if(vocal_root is not None):os.makedirs(vocal_root , exist_ok=True)
-        
-        # create vocal output and instruments output
-        ins_output = os.path.join(ins_root, 'instrument_{}_{}'.format(self.model_name, name))
-        vocal_output = os.path.join(vocal_root , 'vocal_{}_{}'.format(self.model_name, name))
+        if(ins_root is not None):
+            os.makedirs(ins_root, exist_ok=True)
+            ins_output = os.path.join(ins_root, 'instrument_{}_{}'.format(self.model_name, name))
+        if(vocal_root is not None):
+            os.makedirs(vocal_root , exist_ok=True)
+            vocal_output = os.path.join(vocal_root , 'vocal_{}_{}'.format(self.model_name, name))
         
         # check vocal file exist
         if (vocal_root is not None) and os.path.isfile(vocal_output):
