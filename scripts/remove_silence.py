@@ -33,13 +33,13 @@ def vad_filter(infile: str, outfile: str, split_threshold, max_threshold) -> Non
 	# convert timestamps to match original audio file (dual channels & higher bit rate)
 	audio_file: dict[str, int | str | torch.Tensor] = load_audio(infile)
 	ratio = audio_file["sample_rate"] / SAMPLING_RATE
- 
+
 	max_samples = int(split_threshold * audio_file["sample_rate"])
 	max_threshold_samples = int(max_threshold * audio_file["sample_rate"])
 
-    current_duration = 0
-    current_waveform = []
-    file_index = 0
+	current_duration = 0
+	current_waveform = []
+	file_index = 0
     
     print(f"speech_timestamps length: {len(speech_timestamps)}")
     
