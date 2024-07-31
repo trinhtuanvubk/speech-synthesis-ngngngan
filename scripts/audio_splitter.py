@@ -34,7 +34,7 @@ def split_long_audio(input_file, output_root, split_threshold: 15*60, accept_thr
     # get the filename without the extension
     filename = os.path.splitext(os.path.basename(input_file))[0]
     # get the length of the audio
-    audio = AudioSegment.from_wav(wav)
+    audio = AudioSegment.from_wav(input_file)
     length = round(audio.duration_seconds, 2)
     # if the length is more than 12 seconds, split it into 12 second chunks
     if length > accept_threshold:
