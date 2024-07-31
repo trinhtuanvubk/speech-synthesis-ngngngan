@@ -69,7 +69,7 @@ def split_long_audio(input_file, output_root, split_threshold: 15*60, accept_thr
     else:
         print(f"NOT long audio: {input_file}")
         # copy to wavs_split_final
-        out_file = os.path.join(output_root, f"{filename}_split_{current_split}.wav")
+        out_file = os.path.join(output_root, f"{filename}.wav")
         # export the chunk
         audio.export(out_file, format="wav")
 
