@@ -16,19 +16,25 @@ for simplicity, **download only audio with 1 speaker** so after remove silence c
 
 audios are saved as `.wav` files in folder `data/01-raw`
 
-### 2. remove silence and non-speech
+### 1.5 Split very long audio due to lack of memory
 
-using SileroVAD: `python scripts/02-remove-silence.py`
-
-audios are saved as `.wav` files in folder `data/02-vad`
-
-### 2.5 Split very long audio due to lack of memory
-
+- Using pydub to find silence
 ```bash
-python3 audio_splitter.py --input_dir \
---output_dir \
+python3 audio_splitter.py --input_dir path/to/indir \
+--output_dir path/to/outdir
 
 ```
+
+### 2. remove silence and non-speech
+
+- Using SileroVAD:
+```bash
+python scripts/02-remove-silence.py --input_dir path/to/indir \
+--output_dir path/to/outdir
+```
+
+if not pass any anrguments, audios are saved as `.wav` files in folder `data/02-vad`
+
 
 ### 3. remove music 
 
