@@ -55,7 +55,7 @@ class  _audio_pre_():
 
     def _path_audio_(self, music_file ,ins_root=None,vocal_root=None):
         if(ins_root is None and vocal_root is None):return "No save root."
-        name=os.path.basename(music_file)
+        name = os.path.basename(music_file)
         if(ins_root is not None):os.makedirs(ins_root, exist_ok=True)
         if(vocal_root is not None):os.makedirs(vocal_root , exist_ok=True)
         
