@@ -21,7 +21,7 @@ MODEL, (get_speech_timestamps, _, silero_read_audio, _, _) = torch.hub.load(
 MODEL = MODEL.to("cuda")
 
 
-def vad_filter(infile: str, outfile: str, split_threshold=15*60, max_threshold=20*60) -> None:
+def vad_filter(infile: str, outdir: str, split_threshold=15*60, max_threshold=20*60) -> None:
 	wav = silero_read_audio(infile, sampling_rate=SAMPLING_RATE).to("cuda")  # SileroVAD operate on mono channel at 16 kHz
 	with torch.inference_mode(), tqdm(total=wav.shape[0], bar_format=TQDM_PBAR_FORM) as pbar:
 		speech_timestamps: list[dict[str, int]] = get_speech_timestamps(
@@ -93,9 +93,9 @@ def run(input_dir, output_dir):
         # filename = file.rsplit(".",1)[0]
         input_file = os.path.join(input_dir, file)
         print(input_file)
-        output_file = os.path.join(output_dir, file)
+        # output_file = os.path.join(output_dir, file)
         
-        vad_filter(input_file, output_file)
+        vad_filter(input_file, output_dir)
         
 
 #################################### main #####################################
