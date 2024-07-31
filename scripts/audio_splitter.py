@@ -3,6 +3,7 @@ from pydub import AudioSegment
 from pydub.silence import split_on_silence
 import glob
 
+
 # using librosa, write a script that iterates thorugh all the waves in the /data directory and split them into chunks if there is a gap of silence longer than 1 second
 
 def split_audio(audio_path, output_path, min_silence_len=1500, silence_thresh=-60, keep_silence=250):
@@ -72,7 +73,7 @@ def split_long_audio(input_file, output_root, split_threshold: 15*60, accept_thr
         # export the chunk
         audio.export(out_file, format="wav")
 
-def split_long_audio_dir(input_dir, output_root, split_threshold: 15*60, accept_threshold: 20*60)
+def split_long_audio_dir(input_dir, output_root, split_threshold: 15*60, accept_threshold: 20*60):
     for file in os.listdir(input_dir):
         input_file = os.path.join(input_dir, file)
         split_long_audio(input_file, output_root, split_threshold=split_threshold, accept_threshold=accept_threshold)
