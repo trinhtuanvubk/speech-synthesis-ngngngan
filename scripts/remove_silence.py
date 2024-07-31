@@ -41,7 +41,7 @@ def vad_filter(infile: str, outfile: str, split_threshold, max_threshold) -> Non
 	current_waveform = []
 	file_index = 0
     
-    print(f"speech_timestamps length: {len(speech_timestamps)}")
+	print(f"speech_timestamps length: {len(speech_timestamps)}")	
     
 	for el in speech_timestamps:
         start_sample = int(el["start"] * ratio)
