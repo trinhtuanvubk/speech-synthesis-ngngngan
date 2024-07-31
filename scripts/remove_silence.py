@@ -44,43 +44,43 @@ def vad_filter(infile: str, outfile: str, split_threshold, max_threshold) -> Non
 	print(f"speech_timestamps length: {len(speech_timestamps)}")	
     
 	for el in speech_timestamps:
-        start_sample = int(el["start"] * ratio)
-        end_sample = int(el["end"] * ratio)
-        segment = audio_file["waveform"][:, start_sample:end_sample]
-        segment_duration = segment.shape[1]
-        
-        while segment_duration > max_threshold_samples:
-            # If the segment is too long, split it into chunks of max_threshold_samples
-            cut_waveform = segment[:, :max_threshold_samples]
-            outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
-            _save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
-            print(f"Saved {outfile}")
-            
-            file_index += 1
-            segment = segment[:, max_threshold_samples:]
-            segment_duration = segment.shape[1]
+		start_sample = int(el["start"] * ratio)
+		end_sample = int(el["end"] * ratio)
+		segment = audio_file["waveform"][:, start_sample:end_sample]
+		segment_duration = segment.shape[1]
 
-        if current_duration + segment_duration > max_samples:
-            # Save the current waveform to a file
-            cut_waveform = torch.cat(current_waveform, dim=1)
-            outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
-            _save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
-            print(f"Saved {outfile}")
+		while segment_duration > max_threshold_samples:
+			# If the segment is too long, split it into chunks of max_threshold_samples
+			cut_waveform = segment[:, :max_threshold_samples]
+			outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
+			_save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
+			print(f"Saved {outfile}")
+			
+			file_index += 1
+			segment = segment[:, max_threshold_samples:]
+			segment_duration = segment.shape[1]
 
-            # Reset for the next file
-            file_index += 1
-            current_waveform = [segment]
-            current_duration = segment_duration
-        else:
-            current_waveform.append(segment)
-            current_duration += segment_duration
+		if current_duration + segment_duration > max_samples:
+			# Save the current waveform to a file
+			cut_waveform = torch.cat(current_waveform, dim=1)
+			outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
+			_save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
+			print(f"Saved {outfile}")
+
+			# Reset for the next file
+			file_index += 1
+			current_waveform = [segment]
+			current_duration = segment_duration
+		else:
+			current_waveform.append(segment)
+			current_duration += segment_duration
 
     # Save any remaining waveform
-    if current_waveform:
-        cut_waveform = torch.cat(current_waveform, dim=1)
-        outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
-        _save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
-        print(f"Saved {outfile}")
+	if current_waveform:
+		cut_waveform = torch.cat(current_waveform, dim=1)
+		outfile = os.path.join(outdir, f"{os.path.splitext(os.path.basename(infile))[0]}_part{file_index}.wav")
+		_save_audio(outfile, cut_waveform, sample_rate=audio_file["sample_rate"], bits_per_sample=audio_file["bits_per_sample"], encoding=audio_file["encoding"])
+		print(f"Saved {outfile}")
         
 
 def run(input_dir, output_dir):
