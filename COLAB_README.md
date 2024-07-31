@@ -22,6 +22,14 @@ using SileroVAD: `python scripts/02-remove-silence.py`
 
 audios are saved as `.wav` files in folder `data/02-vad`
 
+### 2.5 Split very long audio due to lack of memory
+
+```bash
+python3 audio_splitter.py --input_dir \
+--output_dir \
+
+```
+
 ### 3. remove music 
 
 using uvr
