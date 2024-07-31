@@ -116,6 +116,12 @@ class  _audio_pre_():
             wavfile.write(vocal_output, self.mp.param['sr'], (np.array(wav_vocals)*32768).astype("int16"))
 
 def run(model_path, device, is_half, audio_path, save_path, only_save_vocal=True):
+    
+    if audio_path == None:
+        audio_path = VAD_DATA_PATH
+    if save_apth == None:
+        save_path = VOICE_DATA_PATH
+    
     pre_fun = _audio_pre_(model_path=model_path,device=device,is_half=True)
     if audio_path.endswith(".wav"):
         if only_save_vocal:
@@ -138,8 +144,8 @@ if __name__ == '__main__':
     parser.add_argument('--device', type=str, default="cuda")
     parser.add_argument('--is_half', action="store_false")
     parser.add_argument('--model_path', type=str, default="uvr5_weights/2_HP-UVR.pth")
-    parser.add_argument('--audio_path', type=str, default=VAD_DATA_PATH)
-    parser.add_argument('--save_path', type=str, default=VOICE_DATA_PATH)
+    parser.add_argument('--audio_path', type=str, default=None)
+    parser.add_argument('--save_path', type=str, default=None)
     parser.add_argument('--only_save_vocal', action="store_true")
 
     args = parser.parse_args()

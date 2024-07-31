@@ -43,6 +43,9 @@ using uvr
 ```bash
 cd src/uvr_remove_music
 bash ./download.sh
-python3 separate.py --model_path "uvr5_weights/2_HP-UVR.pth" --audio_path 9OvlclzngLY.wav --only_save_vocal
+python3 separate.py --model_path "uvr5_weights/2_HP-UVR.pth" \
+--audio_path path/to/infile_or_indir \
+--save_path path/to/outdir \
+--only_save_vocal
 ```
 
