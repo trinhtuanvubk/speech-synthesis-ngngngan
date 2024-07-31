@@ -105,8 +105,8 @@ if __name__ == "__main__":
     parser.add_argument('--input_dir', type=str, default="None")
     parser.add_argument('--input_file', type=str, default="None")
     parser.add_argument('--output_dir', type=str, default="None")
-    parser.add_argument('--split_threshold', type=str, default="None")
-    parser.add_argument('--accept_threshold', type=str, default="None")
+    parser.add_argument('--split_threshold', type=int, default=15*60)
+    parser.add_argument('--accept_threshold', type=int, default=20*60)
     
     args = parser.parse_args()
     
