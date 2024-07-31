@@ -53,6 +53,7 @@ def run(input_dir, output_dir):
     for file in os.listdir(input_dir):
         # filename = file.rsplit(".",1)[0]
         input_file = os.path.join(input_dir, file)
+        print(input_file)
         output_file = os.path.join(output_dir, file)
         
         vad_filter(input_file, output_file)
