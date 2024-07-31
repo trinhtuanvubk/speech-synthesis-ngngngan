@@ -50,7 +50,7 @@ def split_long_audio(input_file, output_root, split_threshold: 15*60, accept_thr
             # accumulate chunks until we have 12 seconds, then write
             # also write if we're at the end of the file
             current_length += round(chunk.duration_seconds, 2)
-            print(filename)
+            # print(filename)
             if current_length > split_threshold or (i == len(chunks) - 1 and len(chunks) > 1):
                 # export the chunk
                 out_file = os.path.join(output_root, f"{filename}_split_{current_split}.wav")
