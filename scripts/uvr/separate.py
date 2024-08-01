@@ -119,7 +119,7 @@ def run(model_path, device, is_half, audio_path, save_path, only_save_vocal=True
     
     if audio_path == None:
         audio_path = VAD_DATA_PATH
-    if save_apth == None:
+    if save_path == None:
         save_path = VOICE_DATA_PATH
     
     pre_fun = _audio_pre_(model_path=model_path,device=device,is_half=True)
