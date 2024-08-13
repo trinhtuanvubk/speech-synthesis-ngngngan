@@ -1,3 +1,7 @@
+
+trash*.py
+.vscode/
+
 draft.*
 data/**/*.webm
 data/**/*.webm.part

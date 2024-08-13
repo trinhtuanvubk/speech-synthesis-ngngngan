@@ -44,13 +44,39 @@ def vad_filter(infile: str, outfile: str) -> None:
 		encoding=audio_file["encoding"]
 	)
 
+def run(input_dir, output_dir):
+    if input_dir == None:
+        input_dir = RAW_DATA_PATH
+    if output_dir == None:
+        output_dir = VAD_DATA_PATH
+    
+    for file in os.listdir(input_dir):
+        # filename = file.rsplit(".",1)[0]
+        input_file = os.path.join(input_dir, file)
+        print(input_file)
+        output_file = os.path.join(output_dir, file)
+        
+        vad_filter(input_file, output_file)
+        
 
 #################################### main #####################################
-for id in LIST_VID.keys():
-	infile = os.path.join(RAW_DATA_PATH, f"{id}.wav")
-	outfile = os.path.join(VAD_DATA_PATH, f"{id}.wav")
-	if not os.path.exists(infile):
-		print(f"{id} not found")
-	else:
-		print(f"{id} to be VAD filtered")
-		vad_filter(infile, outfile)
+
+if __name__=="__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_dir', type=str, default=None)
+    parser.add_argument('--output_dir', type=str, default=None)
+    
+    args = parser.parse_args()
+    
+    run(args.input_dir, args.output_dir)
+    
+	# for id in LIST_VID.keys():
+	# 	infile = os.path.join(RAW_DATA_PATH, f"{id}.wav")
+	# 	outfile = os.path.join(VAD_DATA_PATH, f"{id}.wav")
+	# 	if not os.path.exists(infile):
+	# 		print(f"{id} not found")
+	# 	else:
+	# 		print(f"{id} to be VAD filtered")
+	# 		vad_filter(infile, outfile)

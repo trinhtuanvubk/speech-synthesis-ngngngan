@@ -3,6 +3,7 @@
 import os.path
 import json
 
+INFO_DATA_PATH 	   = os.path.join("data", "info")
 RAW_DATA_PATH      = os.path.join("data", "01-raw")
 VAD_DATA_PATH      = os.path.join("data", "02-vad")
 DIARIZED_DATA_PATH = os.path.join("data", "03-diarized")
